@@ -12,7 +12,12 @@ console.log(URL)
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+
+const corsOptions = {
+  origin: 'https://taskmanagerbeta.netlify.app',
+};
+
+app.use(cors(corsOptions));
 
 app.post(`${URL}/api/tasks`, async (req, res) => {
     try {
