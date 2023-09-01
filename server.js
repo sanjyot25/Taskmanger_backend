@@ -6,12 +6,15 @@ const config = require('dotenv').config();
 const authRoutes = require('./routes/auth');
 const Task = require('./models/Task');
 
+const URL = process.env.BASE_URL;
+console.log(URL)
+
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-app.post('/api/tasks', async (req, res) => {
+app.post(`${URL}/api/tasks`, async (req, res) => {
     try {
       const { title, description } = req.body;
       const newTask = new Task({ title, description });
@@ -23,7 +26,7 @@ app.post('/api/tasks', async (req, res) => {
   });
 
   // Get all tasks
-app.get('/api/tasks', async (req, res) => {
+app.get(`${URL}/api/tasks`, async (req, res) => {
     try {
       const tasks = await Task.find();
       res.json(tasks);
@@ -40,7 +43,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
     console.error('Error connecting to MongoDB:', err);
   });
 
-app.use('/api/auth', authRoutes);
+app.use(`${URL}/api/auth`, authRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
