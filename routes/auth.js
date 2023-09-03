@@ -6,7 +6,7 @@ const User = require('../models/User');
 
 const router = express.Router();
 const URL = process.env.BASE_URL;
-//hha
+
 // Signup
 router.post(`${URL}/signup`, async (req, res) => {
   try {
