@@ -8,7 +8,7 @@ const router = express.Router();
 const URL = process.env.BASE_URL;
 
 // Signup
-router.post(`${URL}/signup`, async (req, res) => {
+router.post(`/signup`, async (req, res) => {
   try {
     const { username, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -21,7 +21,7 @@ router.post(`${URL}/signup`, async (req, res) => {
 });
 
 // Login
-router.post(`${URL}/login`, async (req, res) => {
+router.post(`/login`, async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });

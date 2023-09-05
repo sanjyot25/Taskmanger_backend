@@ -1,12 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+// import dotenv from "dotenv" 
 const config = require('dotenv').config();
 // const config = require('./config');
 const authRoutes = require('./routes/auth');
+
 const Task = require('./models/Task');
 
 const URL = process.env.BASE_URL;
+
 console.log(URL)
 
 const app = express();
@@ -17,6 +20,7 @@ const corsOptions = {
   origin: 'https://taskmanagerbeta.netlify.app',
 };
 
+app.use(cors());
 app.use(cors(corsOptions));
 
 app.post(`${URL}/api/tasks`, async (req, res) => {
@@ -50,7 +54,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 
 app.use(`${URL}/api/auth`, authRoutes);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
